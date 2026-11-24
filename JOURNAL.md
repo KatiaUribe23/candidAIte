@@ -17,3 +17,7 @@ Katia supplied the logo reference, slogan, palette, and typography. Codex sample
 A script-level check exercised both views and confirmed that approval displays the edited project. Visual browser testing is pending. The prototype uses a fixed sample and does not yet process uploaded CVs.
 
 Katia reviewed the first version and wanted more depth. Codex added a technical illustration of the sample gripper, individual skill selection, and a way to withdraw a shared profile. A script-level check verified that approval copies the selected skills and edited text, and that withdrawal clears the employer view. The browser test could not launch Edge in this session.
+
+## November 23, 2026 — Page-by-page planning
+
+Katia shared the original project discussion. We reviewed the team's aim to reduce bias linked to school and gender, and the idea of matching jobs and applicants in both directions. The proposed next page is CV intake, leading into the existing candidate review. Later pages will cover vacancy review and explainable recommendations. This entry records planning only.
