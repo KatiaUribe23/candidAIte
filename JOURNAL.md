@@ -27,3 +27,7 @@ Katia shared the original project discussion. We reviewed the team's aim to redu
 Katia requested a more developed site with separate workspaces. Codex built five main sections and linked candidate intake, consent, vacancy editing, a rule-based Spanish wording audit, and two illustrative fit indicators. PDF and DOCX selection is local; users enter their own project details manually. Sharing lasts for the open page session.
 
 Script checks covered navigation targets, wording flags, skill and modality calculations, and withdrawal. Visual verification in the in-app browser was blocked for the local file URL.
+
+## November 23, 2026 — Public classroom demo
+
+At Katia's request, Codex published the multi-tab prototype through GitHub Pages using the gh-pages branch. An unauthenticated HTTP request returned status 200 and confirmed the candidate workspace and compatibility section in the published HTML. Demo URL: https://katiauribe23.github.io/candidAIte/
