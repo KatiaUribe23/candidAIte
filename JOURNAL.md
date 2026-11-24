@@ -9,3 +9,9 @@
 **Design discussion.** We discussed a possible demo using a fictional résumé and job posting. An applicant could preview the skills an employer would see, and an employer could review potentially biased wording. Showing how the job fits the applicant's preferences would also give the applicant a voice in the matching process.
 
 **Current state.** The journal is the first project addition. The website and the proposed demo are still at the planning stage.
+
+## November 23, 2026 — Brand identity and first interactive demo
+
+Katia supplied the logo reference, slogan, palette, and typography. Codex sampled the four palette colors and built a responsive Spanish-language prototype with a text-based wordmark. The candidate can edit a fictional project and approve what the employer sees. The employer view displays the approved project and skills. Sharing lasts for the current page session.
+
+A script-level check exercised both views and confirmed that approval displays the edited project. Visual browser testing is pending. The prototype uses a fixed sample and does not yet process uploaded CVs.

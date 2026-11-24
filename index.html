@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CandidAIte · Perfil profesional</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--ink:#0d162a;--blue:#184683;--sky:#3e9bd2;--paper:#f8fbf8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:1rem/1.6 Gotham,Montserrat,Arial,sans-serif}
+header,main,footer{max-width:1180px;margin:auto;padding:24px clamp(20px,5vw,64px)}
+header,footer{display:flex;justify-content:space-between;align-items:center;gap:16px}
+header{border-bottom:1px solid #d3dce3}
+.logo,h1,h2,h3{font-family:Montserrat,Arial,sans-serif}
+.logo{font-weight:800;letter-spacing:-.06em;font-size:2rem;color:var(--ink);text-decoration:none}
+.logo span{color:var(--sky)}
+.note,small{font-size:.875rem}
+.hero{padding:clamp(32px,7vw,76px) clamp(24px,6vw,72px);border-radius:24px;background:radial-gradient(ellipse at 105% 0%,#3e9bd2,transparent 55%),linear-gradient(115deg,#0d162a,#184683);color:white}
+.hero small{letter-spacing:.08em}
+h1{font-size:clamp(2.8rem,6vw,5rem);letter-spacing:-.065em;line-height:1.02;margin:18px 0}
+.hero p{max-width:50ch}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+button,.button{font:inherit;font-weight:700;cursor:pointer;border:1px solid transparent;border-radius:9px;padding:10px 16px;text-decoration:none;background:var(--blue);color:white}
+.hero .button{background:white;color:var(--ink)}
+.hero .secondary{background:transparent;border-color:#cde5f4;color:white}
+:focus-visible{outline:3px solid #ed9c29;outline-offset:3px}
+section[hidden]{display:none}
+.panel{margin:24px 0;border:1px solid #cddbe2;border-radius:18px;background:white;padding:clamp(22px,4vw,44px)}
+h2,h3,p{margin-top:0}
+h2{letter-spacing:-.04em;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.2}
+.grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(22px,5vw,56px)}
+.private{background:#edf3f7;border-radius:12px;padding:22px}
+label{display:block;font-weight:700;margin:16px 0 6px}
+textarea{width:100%;min-height:96px;padding:12px;font:inherit;border:1px solid #8395a8;border-radius:8px}
+.tag{display:inline-block;color:var(--blue);background:#e7f2fa;padding:3px 10px;border-radius:20px;margin:0 4px 6px 0;font-weight:600}
+footer{border-top:1px solid #d3dce3;color:#43526a;flex-wrap:wrap}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.logo{font-size:1.65rem}}
+</style>
+</head>
+<body>
+<header><a class="logo" href="#inicio" aria-label="CandidAIte, inicio">Candid<span>AI</span>te</a><small>Demo con datos ficticios</small></header>
+<main id="inicio">
+<div class="hero"><small>BEYOND BIAS. TOWARDS TALENT.</small><h1>Tu talento,<br>en primer plano.</h1>
+<p>Explora cómo se presenta un proyecto profesional cuando tú decides qué información compartir.</p>
+<nav class="actions" aria-label="Elegir experiencia"><a class="button" href="#candidata">Busco empleo</a><a class="button secondary" href="#empresa">Busco talento</a></nav></div>
+<section class="panel" id="candidata" hidden>
+<h2 tabindex="-1">Revisa tu perfil</h2><div class="grid">
+<div class="private"><h3>Tu CV de ejemplo</h3><p><strong>Andrea Luna</strong><br>Universidad del Valle Azul</p><p>Ingeniería mecánica · Proyecto estudiantil</p><p>Diseñé en SolidWorks una pinza para un robot y probé dos prototipos para mejorar el agarre.</p><small>Solo tú ves el nombre y la universidad.</small></div>
+<form id="review"><h3>Vista para la empresa</h3><span class="tag">SolidWorks</span><span class="tag">Prototipado</span>
+<label for="project">Tu proyecto</label><textarea id="project" required maxlength="800">Diseñé en SolidWorks una pinza para un robot y probé dos prototipos para mejorar el agarre.</textarea>
+<p class="note">Edita el texto antes de compartirlo. Todo lo que escribas aquí aparecerá en la vista de la empresa.</p>
+<button>Aprobar y ver perfil compartido</button></form></div></section>
+<section class="panel" id="empresa" hidden><h2 tabindex="-1">Talento compartido</h2>
+<p id="empty">Aún no hay perfiles compartidos. Entra a «Busco empleo» para revisar y aprobar el perfil de ejemplo.</p>
+<div id="profile" hidden><h3>Perfil anónimo · Ingeniería mecánica</h3><span class="tag">SolidWorks</span><span class="tag">Prototipado</span><p id="published"></p></div>
+<a href="#candidata">Volver a la vista de candidata</a></section>
+</main><footer><span>CandidAIte</span><small>Prototipo educativo · Los cambios duran hasta que recargues la página.</small></footer>
+<script>
+const candidate = document.getElementById('candidata');
+const employer = document.getElementById('empresa');
+const project = document.getElementById('project');
+function showView() {
+  candidate.hidden = location.hash !== '#candidata';
+  employer.hidden = location.hash !== '#empresa';
+  const visible = [candidate, employer].find(section => !section.hidden);
+  if (visible) visible.querySelector('h2').focus();
+}
+project.addEventListener('input', () => project.setCustomValidity(''));
+document.getElementById('review').addEventListener('submit', event => {
+  event.preventDefault();
+  if (!project.value.trim()) {
+    project.setCustomValidity('Describe el proyecto antes de compartirlo.');
+    project.reportValidity();
+    return;
+  }
+  document.getElementById('published').textContent = project.value.trim();
+  document.getElementById('empty').hidden = true;
+  document.getElementById('profile').hidden = false;
+  location.hash = 'empresa';
+});
+window.addEventListener('hashchange', showView);
+showView();
+</script>
+</body></html>
