@@ -21,3 +21,9 @@ Katia reviewed the first version and wanted more depth. Codex added a technical 
 ## November 23, 2026 — Page-by-page planning
 
 Katia shared the original project discussion. We reviewed the team's aim to reduce bias linked to school and gender, and the idea of matching jobs and applicants in both directions. The proposed next page is CV intake, leading into the existing candidate review. Later pages will cover vacancy review and explainable recommendations. This entry records planning only.
+
+## November 23, 2026 — Multi-tab recruitment prototype
+
+Katia requested a more developed site with separate workspaces. Codex built five main sections and linked candidate intake, consent, vacancy editing, a rule-based Spanish wording audit, and two illustrative fit indicators. PDF and DOCX selection is local; users enter their own project details manually. Sharing lasts for the open page session.
+
+Script checks covered navigation targets, wording flags, skill and modality calculations, and withdrawal. Visual verification in the in-app browser was blocked for the local file URL.
