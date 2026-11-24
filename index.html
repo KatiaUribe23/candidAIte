@@ -36,27 +36,73 @@ textarea{width:100%;min-height:96px;padding:12px;font:inherit;border:1px solid #
 .tag{display:inline-block;color:var(--blue);background:#e7f2fa;padding:3px 10px;border-radius:20px;margin:0 4px 6px 0;font-weight:600}
 footer{border-top:1px solid #d3dce3;color:#43526a;flex-wrap:wrap}
 @media(max-width:720px){.grid{grid-template-columns:1fr}.logo{font-size:1.65rem}}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(20px,4vw,52px);align-items:center;background:#0d162a;padding:clamp(24px,4vw,52px);overflow:hidden}
+.hero h1{font-size:clamp(2.8rem,5.8vw,4.9rem)}
+.blueprint{margin:0;border:1px solid #467099;border-radius:14px;overflow:hidden;background-color:#184683;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:18px 18px}
+.blueprint canvas{display:block;width:100%;height:auto}
+.blueprint figcaption{padding:12px 18px;background:#0d162ae8;color:#fff;font-size:.875rem}
+.panel h2{margin-bottom:24px}
+.private{border-top:4px solid var(--blue)}
+fieldset{margin:0;padding:0;border:0}legend{font-weight:700}
+.skill{display:inline-flex;align-items:center;margin:8px 4px 0 0;gap:8px;padding:6px 12px;border-radius:20px;background:#edf3f7;color:var(--blue);cursor:pointer}
+.skill input{accent-color:var(--blue);width:16px;height:16px}
+.profile-card{padding:22px;margin-bottom:16px;background:#edf5fa;border-left:4px solid var(--sky);border-radius:8px}
+#published{white-space:pre-wrap;overflow-wrap:anywhere}
+#withdraw{margin-top:16px;background:white;border-color:var(--blue);color:var(--blue)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.blueprint canvas{max-height:220px;object-fit:contain}}
 </style>
 </head>
 <body>
 <header><a class="logo" href="#inicio" aria-label="CandidAIte, inicio">Candid<span>AI</span>te</a><small>Demo con datos ficticios</small></header>
 <main id="inicio">
-<div class="hero"><small>BEYOND BIAS. TOWARDS TALENT.</small><h1>Tu talento,<br>en primer plano.</h1>
+<div class="hero"><div><small>BEYOND BIAS. TOWARDS TALENT.</small><h1>Tu talento,<br>en primer plano.</h1>
 <p>Explora cómo se presenta un proyecto profesional cuando tú decides qué información compartir.</p>
 <nav class="actions" aria-label="Elegir experiencia"><a class="button" href="#candidata">Busco empleo</a><a class="button secondary" href="#empresa">Busco talento</a></nav></div>
+<figure class="blueprint"><canvas id="drawing" width="640" height="430" role="img" aria-label="Boceto frontal de una pinza robótica con dos mordazas articuladas"></canvas><figcaption>Proyecto de muestra · Pinza robótica en SolidWorks</figcaption></figure></div>
 <section class="panel" id="candidata" hidden>
 <h2 tabindex="-1">Revisa tu perfil</h2><div class="grid">
 <div class="private"><h3>Tu CV de ejemplo</h3><p><strong>Andrea Luna</strong><br>Universidad del Valle Azul</p><p>Ingeniería mecánica · Proyecto estudiantil</p><p>Diseñé en SolidWorks una pinza para un robot y probé dos prototipos para mejorar el agarre.</p><small>Solo tú ves el nombre y la universidad.</small></div>
-<form id="review"><h3>Vista para la empresa</h3><span class="tag">SolidWorks</span><span class="tag">Prototipado</span>
+<form id="review"><h3>Vista para la empresa</h3><fieldset><legend>Habilidades que quieres mostrar</legend>
+<label class="skill"><input type="checkbox" name="skill" value="SolidWorks" checked> SolidWorks</label>
+<label class="skill"><input type="checkbox" name="skill" value="Prototipado" checked> Prototipado</label></fieldset>
 <label for="project">Tu proyecto</label><textarea id="project" required maxlength="800">Diseñé en SolidWorks una pinza para un robot y probé dos prototipos para mejorar el agarre.</textarea>
 <p class="note">Edita el texto antes de compartirlo. Todo lo que escribas aquí aparecerá en la vista de la empresa.</p>
-<button>Aprobar y ver perfil compartido</button></form></div></section>
+<button>Aprobar y ver perfil compartido</button><br><button id="withdraw" type="button" hidden>Retirar perfil compartido</button><p role="status" id="notice"></p></form></div></section>
 <section class="panel" id="empresa" hidden><h2 tabindex="-1">Talento compartido</h2>
 <p id="empty">Aún no hay perfiles compartidos. Entra a «Busco empleo» para revisar y aprobar el perfil de ejemplo.</p>
-<div id="profile" hidden><h3>Perfil anónimo · Ingeniería mecánica</h3><span class="tag">SolidWorks</span><span class="tag">Prototipado</span><p id="published"></p></div>
+<div id="profile" class="profile-card" hidden><h3>Perfil anónimo · Ingeniería mecánica</h3><div id="approved-skills"></div><p id="published"></p></div>
 <a href="#candidata">Volver a la vista de candidata</a></section>
 </main><footer><span>CandidAIte</span><small>Prototipo educativo · Los cambios duran hasta que recargues la página.</small></footer>
 <script>
+// Front elevation of the fictional gripper, mirrored around its centerline.
+const pen = document.getElementById('drawing').getContext('2d');
+pen.translate(320, 22);
+pen.lineJoin = 'round';
+function plate(points, fill) {
+  pen.beginPath();
+  points.forEach(([x,y],i) => i ? pen.lineTo(x,y) : pen.moveTo(x,y));
+  pen.closePath();
+  pen.fillStyle = fill;
+  pen.fill();
+  pen.strokeStyle = '#c4ecff';
+  pen.lineWidth = 3;
+  pen.stroke();
+}
+plate([[-60,348],[-60,296],[-92,266],[-92,226],[92,226],[92,266],[60,296],[60,348]], '#246499');
+for (const side of [-1,1]) {
+  pen.save();
+  pen.scale(side,1);
+  plate([[35,234],[90,250],[154,160],[127,135]], '#539dbe');
+  plate([[125,164],[157,156],[147,86],[80,43],[65,58],[116,112]], '#307bab');
+  plate([[61,64],[84,40],[69,30],[48,54]], '#aadff5');
+  for (const [x,y] of [[68,235],[140,150]]) {
+    pen.beginPath(); pen.arc(x,y,11,0,2*Math.PI);
+    pen.fillStyle='#184683'; pen.fill(); pen.stroke();
+  }
+  pen.restore();
+}
+pen.setLineDash([7,7]); pen.strokeStyle='#a5d7ed'; pen.lineWidth=1;
+pen.beginPath(); pen.moveTo(0,5); pen.lineTo(0,380); pen.stroke();
 const candidate = document.getElementById('candidata');
 const employer = document.getElementById('empresa');
 const project = document.getElementById('project');
@@ -75,9 +121,26 @@ document.getElementById('review').addEventListener('submit', event => {
     return;
   }
   document.getElementById('published').textContent = project.value.trim();
+  const selectedSkills = document.querySelectorAll('input[name="skill"]:checked');
+  document.getElementById('approved-skills').replaceChildren(...Array.from(selectedSkills, input => {
+    const chip = document.createElement('span');
+    chip.className = 'tag';
+    chip.textContent = input.value;
+    return chip;
+  }));
+  document.getElementById('withdraw').hidden = false;
+  document.getElementById('notice').textContent = '';
   document.getElementById('empty').hidden = true;
   document.getElementById('profile').hidden = false;
   location.hash = 'empresa';
+});
+document.getElementById('withdraw').addEventListener('click', () => {
+  document.getElementById('profile').hidden = true;
+  document.getElementById('published').textContent = '';
+  document.getElementById('approved-skills').replaceChildren();
+  document.getElementById('empty').hidden = false;
+  document.getElementById('withdraw').hidden = true;
+  document.getElementById('notice').textContent = 'Retiraste tu perfil. Ya no aparece en la vista de empresa.';
 });
 window.addEventListener('hashchange', showView);
 showView();

@@ -15,3 +15,5 @@
 Katia supplied the logo reference, slogan, palette, and typography. Codex sampled the four palette colors and built a responsive Spanish-language prototype with a text-based wordmark. The candidate can edit a fictional project and approve what the employer sees. The employer view displays the approved project and skills. Sharing lasts for the current page session.
 
 A script-level check exercised both views and confirmed that approval displays the edited project. Visual browser testing is pending. The prototype uses a fixed sample and does not yet process uploaded CVs.
+
+Katia reviewed the first version and wanted more depth. Codex added a technical illustration of the sample gripper, individual skill selection, and a way to withdraw a shared profile. A script-level check verified that approval copies the selected skills and edited text, and that withdrawal clears the employer view. The browser test could not launch Edge in this session.
