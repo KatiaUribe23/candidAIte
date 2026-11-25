@@ -117,23 +117,53 @@ function audit(){
   if(!root.childElementCount)root.append(el('p','Sin coincidencias con las reglas de ejemplo. Revisa el contexto con tu equipo.','empty'));
 }
 function chips(skills){const tags=el('div','','tags');skills.forEach(s=>tags.append(el('span',s,'tag')));return tags;}
-function renderTalent(){
-  const root=byId('talentBody');root.replaceChildren();
-  if(!shared){root.append(el('p','Todavía no hay perfiles aprobados.','empty'),link('Preparar perfil de muestra','revision'));return;}
-  root.append(el('p','PERFIL ANÓNIMO','eyebrow'),el('h3','Proyecto profesional'),chips(shared.skills),el('p',shared.project,'preserve'),link('Explicar coincidencia','coincidencias'));
+const extraProfiles = [
+  {id:'#0127', skills:['SolidWorks','Python','CAD'], project:'Automatización de pruebas mecánicas con sensores y análisis de datos.', preference:'Presencial'},
+  {id:'#0042', skills:['CAD','Prototipado','Documentación técnica'], project:'Rediseño ergonómico de piezas industriales y validación de tolerancias.', preference:'Remota'}
+];
+
+function scorePair(profile) {
+  const req = vacancy.requirements, found = req.filter(s => profile.skills.includes(s)), missing = req.filter(s => !profile.skills.includes(s));
+  const emp = req.length ? Math.round(found.length / req.length * 100) : 0;
+  const cand = (profile.preference === 'Indistinta' || profile.preference === vacancy.mode) ? 100 : 50;
+  const mutual = Math.round(Math.sqrt(emp * cand));
+  return {emp, cand, mutual, found, missing};
 }
-function metric(title,value,detail){
-  const box=el('article','','box');box.append(el('h3',title),el('h2',value===null?'Sin criterios':value+' %'));
-  if(value!==null){const bar=el('div','','meter'),fill=el('i');fill.style.width=value+'%';bar.append(fill);box.append(bar);}
-  box.append(el('p',detail,'metric'));return box;
+
+function renderTalent() {
+  const root = byId('talentBody'); root.replaceChildren();
+  if (!shared) { root.append(el('p','Todavía no hay perfiles aprobados.','empty'), link('Preparar perfil de muestra','revision')); return; }
+  const active = {id:'#0084 (Tu perfil)', ...shared};
+  const all = [active, ...extraProfiles];
+  root.append(el('p','COMPARACIÓN ANÓNIMA (SIN NOMBRE, FOTO NI UNIVERSIDAD)','eyebrow'), el('h3','Perfiles compatibles con: ' + vacancy.title));
+  const list = el('div','cards');
+  all.forEach(p => {
+    const sc = scorePair(p);
+    const card = el('article','','box');
+    card.append(el('p','CANDIDATURA ' + p.id,'eyebrow'), el('h3','Match mutuo: ' + sc.mutual + ' %'), chips(p.skills), el('p',p.project,'preserve'), el('p','Modalidad: ' + p.preference + ' · Ajuste empresa: ' + sc.emp + '%','note'));
+    list.append(card);
+  });
+  root.append(list, el('div','','actions'));
+  root.lastChild.append(link('Ver desglose bidireccional','coincidencias'));
 }
-function matches(){
-  const root=byId('match');root.replaceChildren();
-  if(!shared){root.append(el('p','Comparte un perfil desde la revisión para calcular la compatibilidad con la vacante de ejemplo.','empty'),link('Revisar mi perfil','revision'));return;}
-  const req=vacancy.requirements, found=req.filter(s=>shared.skills.includes(s)), missing=req.filter(s=>!shared.skills.includes(s));
-  const fit=shared.preference==='Indistinta'||shared.preference===vacancy.mode;
-  const grid=el('div','','two');grid.append(metric('Desde la empresa',req.length?Math.round(found.length/req.length*100):null,req.length?found.length+' de '+req.length+' habilidades. Coinciden: '+(found.join(', ')||'ninguna')+'. Pendientes: '+(missing.join(', ')||'ninguna')+'.':'Agrega habilidades esenciales para calcular este indicador.'),metric('Desde la candidatura',fit?100:0,'Modalidad preferida: '+shared.preference+'. La empresa ofrece: '+vacancy.mode+'. Este ejemplo solo evalúa la modalidad.'));
-  root.append(el('h2',vacancy.title),grid,el('p','Simulación educativa con criterios visibles. Los porcentajes no predicen el desempeño.','note'),link('Ajustar vacante','empresa'));
+
+function metric(title, value, detail) {
+  const box = el('article','','box'); box.append(el('h3',title), el('h2',value === null ? 'Sin criterios' : value + ' %'));
+  if (value !== null) { const bar = el('div','','meter'), fill = el('i'); fill.style.width = value + '%'; bar.append(fill); box.append(bar); }
+  box.append(el('p',detail,'metric')); return box;
+}
+
+function matches() {
+  const root = byId('match'); root.replaceChildren();
+  if (!shared) { root.append(el('p','Comparte un perfil desde la revisión para calcular la compatibilidad con la vacante de ejemplo.','empty'), link('Revisar mi perfil','revision')); return; }
+  const req = vacancy.requirements, sc = scorePair(shared);
+  const grid = el('div','','steps');
+  grid.append(
+    metric('Desde la empresa', req.length ? sc.emp : null, req.length ? sc.found.length + ' de ' + req.length + ' habilidades. Coinciden: ' + (sc.found.join(', ') || 'ninguna') + '. Pendientes: ' + (sc.missing.join(', ') || 'ninguna') + '.' : 'Agrega habilidades esenciales.'),
+    metric('Desde la candidatura', sc.cand, 'Modalidad preferida: ' + shared.preference + '. La empresa ofrece: ' + vacancy.mode + '.'),
+    metric('Compatibilidad mutua', req.length ? sc.mutual : null, 'Media geométrica √(' + sc.emp + ' × ' + sc.cand + ') para equilibrar ambos intereses.')
+  );
+  root.append(el('h2',vacancy.title), grid, el('p','Simulación educativa con criterios visibles. Los porcentajes orientan la revisión humana y no predicen desempeño.','note'), link('Ajustar vacante','empresa'));
 }
 function render(){
   let key=location.hash.slice(1);
