@@ -34,7 +34,7 @@ At Katia's request, Codex published the multi-tab prototype through GitHub Pages
 
 ## November 25, 2026 — Mutual compatibility scoring and anonymous talent comparison
 
-Marian Soto (`MarianSot0`) updated the matching engine and employer talent view in `index.html` to align the prototype with Sections 6.5 and 7.2 of the Final Product Proposal.
+Marian updated the matching engine and employer talent view in `index.html` to align the prototype with Sections 6.5 and 7.2 of the Final Product Proposal.
 
 The matching module now calculates a combined mutual compatibility score using the geometric mean ($\sqrt{\text{Employer fit} \times \text{Candidate fit}}$) alongside separate employer and candidate indicators, plus an explicit breakdown of matched and missing skills. In addition, the employer talent section was expanded from a single-profile preview into a structured anonymous comparison across three fictional profiles (`#0084`, `#0127`, and `#0042`), keeping names, photographs, and university prestige hidden.
 
