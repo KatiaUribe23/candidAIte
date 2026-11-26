@@ -39,3 +39,7 @@ Marian updated the matching engine and employer talent view in `index.html` to a
 The matching module now calculates a combined mutual compatibility score using the geometric mean ($\sqrt{\text{Employer fit} \times \text{Candidate fit}}$) alongside separate employer and candidate indicators, plus an explicit breakdown of matched and missing skills. In addition, the employer talent section was expanded from a single-profile preview into a structured anonymous comparison across three fictional profiles (`#0084`, `#0127`, and `#0042`), keeping names, photographs, and university prestige hidden.
 
 A code-level review verified valid JavaScript syntax, consistent Spanish UI labels across the prototype, and proper score recalculation when preferred and offered work modalities differ.
+
+## November 26, 2026 — Classroom demo with Marian’s contributions
+
+Marian implemented the three-profile anonymous comparison and geometric-mean compatibility score. Codex published her work to GitHub Pages, added a fictional-CV entry point, corrected the comparison layout, and clarified what happens when a vacancy has no required skills. Script checks covered the three profiles, a 71% mutual fit for a modality mismatch with full skill coverage, missing requirements, and withdrawal. The public URL returned HTTP 200 with the new demo entry point.
