@@ -182,4 +182,20 @@ function render(){
   heading.tabIndex=-1;heading.focus({preventScroll:true});window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',render);render();
+  (function addBiasDemoBtn() {
+  const form = byId('job');
+  const saveBtn = form ? form.querySelector('button') : null;
+  if (!saveBtn || byId('loadBiasBtn')) return;
+  const btn = el('button', 'Probar texto con múltiples sesgos', 'btn ghost');
+  btn.type = 'button';
+  btn.id = 'loadBiasBtn';
+  btn.style.marginLeft = '8px';
+  btn.onclick = () => {
+    byId('role').value = 'Ingeniería Mecánica Junior';
+    byId('mode').value = 'Híbrida';
+    byId('description').value = 'Buscamos persona joven de universidad prestigiosa, hablante nativo de inglés, preferentemente hombre, con experiencia en diseño mecánico.';
+    saveBtn.click();
+  };
+  saveBtn.after(btn);
+})();
 </script></body></html>
