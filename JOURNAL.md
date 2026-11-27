@@ -51,3 +51,11 @@ Marian  added a one-click sample preset button (`Probar texto con múltiples ses
 This enhancement allows presenters during live competition demonstrations to automatically populate the job role, work modality, and description fields with a sample text containing age, institutional prestige, native-speaker proxy, and gender bias indicators, triggering all four rule-based ethical audit alerts immediately without manual typing.
 
 Verified that the button binds cleanly to the existing form controls (`#role`, `#mode`, and `#description`) and preserves valid JavaScript syntax and Spanish UI consistency across the application.
+
+## November 26, 2026 — Multiple job recommendations in bidirectional matching
+
+Marian expanded the bidirectional matching view (`#coincidencias`) in `index.html` to display additional simulated job recommendations tailored to the candidate's approved profile, aligning the prototype with Section 5.4 of the Final Product Proposal.
+
+Alongside the primary editable employer vacancy, the matching section now evaluates two additional fictional roles (`Ingeniería Mecánica Junior` and `Diseño de Producto Industrial`) against the candidate's selected skills and preferred work modality, displaying each role's mutual compatibility score using the geometric mean ($\sqrt{\text{Employer fit} \times \text{Candidate fit}}$) and matched skill breakdown.
+
+Verified clean grid rendering with existing `.cards` styles, valid JavaScript syntax, and consistent Spanish UI labeling across all views.
