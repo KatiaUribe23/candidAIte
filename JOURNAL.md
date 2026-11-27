@@ -43,3 +43,11 @@ A code-level review verified valid JavaScript syntax, consistent Spanish UI labe
 ## November 26, 2026 — Classroom demo with Marian’s contributions
 
 Marian implemented the three-profile anonymous comparison and geometric-mean compatibility score. Codex published her work to GitHub Pages, added a fictional-CV entry point, corrected the comparison layout, and clarified what happens when a vacancy has no required skills. Script checks covered the three profiles, a 71% mutual fit for a modality mismatch with full skill coverage, missing requirements, and withdrawal. The public URL returned HTTP 200 with the new demo entry point.
+
+## November 26, 2026 — Multi-bias audit demo preset button
+
+Marian  added a one-click sample preset button (`Probar texto con múltiples sesgos`) to the employer job description form (`#job`) in `index.html`.
+
+This enhancement allows presenters during live competition demonstrations to automatically populate the job role, work modality, and description fields with a sample text containing age, institutional prestige, native-speaker proxy, and gender bias indicators, triggering all four rule-based ethical audit alerts immediately without manual typing.
+
+Verified that the button binds cleanly to the existing form controls (`#role`, `#mode`, and `#description`) and preserves valid JavaScript syntax and Spanish UI consistency across the application.
